@@ -6,7 +6,6 @@ from typing import Literal
 import yaml
 from pydantic import BaseModel, Field, model_validator
 
-
 TelemetryField = Literal[
     "speed_rpm", "frequency_hz", "current_a", "dc_bus_voltage_v", "status_word", "fault_code"
 ]
@@ -25,7 +24,7 @@ class DriveConfig(BaseModel):
     nodes: list[NodeMapping]
 
     @model_validator(mode="after")
-    def unique_fields(self) -> "DriveConfig":
+    def unique_fields(self) -> DriveConfig:
         fields = [node.field for node in self.nodes]
         if len(fields) != len(set(fields)):
             raise ValueError(f"drive {self.id!r} maps a telemetry field more than once")
@@ -40,7 +39,7 @@ class OpcUaConfig(BaseModel):
     timeout_seconds: float = Field(default=5.0, gt=0, le=30)
 
     @model_validator(mode="after")
-    def endpoint_is_tcp(self) -> "OpcUaConfig":
+    def endpoint_is_tcp(self) -> OpcUaConfig:
         if not self.endpoint.startswith("opc.tcp://"):
             raise ValueError("OPC UA endpoint must start with opc.tcp://")
         return self
@@ -59,7 +58,7 @@ class AppConfig(BaseModel):
     drives: list[DriveConfig]
 
     @model_validator(mode="after")
-    def required_provider_config(self) -> "AppConfig":
+    def required_provider_config(self) -> AppConfig:
         if self.provider == "opcua" and self.opcua is None:
             raise ValueError("opcua configuration is required for the opcua provider")
         ids = [drive.id for drive in self.drives]

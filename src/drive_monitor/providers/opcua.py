@@ -57,7 +57,9 @@ class OpcUaProvider:
             telemetry.fault_text = "No fault" if telemetry.fault_code == 0 else None
             telemetry.observed_at = datetime.now(UTC)
             return telemetry
-        except Exception as exc:
+        # A provider is an I/O boundary; library, transport, and decoding failures all become
+        # explicit bad-quality telemetry instead of terminating monitoring for the other drives.
+        except Exception as exc:  # noqa: BLE001
             telemetry.quality = Quality.BAD
             telemetry.error = f"read failed: {exc}"
             return telemetry
