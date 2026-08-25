@@ -1,0 +1,38 @@
+provider: simulator
+poll_interval_seconds: 1
+stale_after_seconds: 5
+
+# For the real PLC, change provider to opcua and replace every node_id with the
+# exact NodeId exported by the TIA Portal OPC UA server interface.
+opcua:
+  endpoint: opc.tcp://192.168.0.10:4840
+  username: drive_monitor
+  password_env: DRIVE_MONITOR_OPCUA_PASSWORD
+  # Generate client credentials before enabling signed/encrypted operation.
+  # security_string: Basic256Sha256,SignAndEncrypt,certs/client.der,certs/client.pem
+
+simulator:
+  seed: 42
+
+drives:
+  - id: conveyor-1
+    model: SK500P
+    nodes:
+      - { node_id: 'ns=3;s="DriveTelemetry"."Conveyor1"."SpeedRpm"', field: speed_rpm }
+      - { node_id: 'ns=3;s="DriveTelemetry"."Conveyor1"."FrequencyHz"', field: frequency_hz }
+      - { node_id: 'ns=3;s="DriveTelemetry"."Conveyor1"."CurrentA"', field: current_a }
+      - { node_id: 'ns=3;s="DriveTelemetry"."Conveyor1"."StatusWord"', field: status_word }
+      - { node_id: 'ns=3;s="DriveTelemetry"."Conveyor1"."FaultCode"', field: fault_code }
+  - id: pump-1
+    model: SK550P
+    nodes:
+      - { node_id: 'ns=3;s="DriveTelemetry"."Pump1"."SpeedRpm"', field: speed_rpm }
+      - { node_id: 'ns=3;s="DriveTelemetry"."Pump1"."StatusWord"', field: status_word }
+      - { node_id: 'ns=3;s="DriveTelemetry"."Pump1"."FaultCode"', field: fault_code }
+  - id: fan-1
+    model: SK200E
+    nodes:
+      - { node_id: 'ns=3;s="DriveTelemetry"."Fan1"."SpeedRpm"', field: speed_rpm }
+      - { node_id: 'ns=3;s="DriveTelemetry"."Fan1"."StatusWord"', field: status_word }
+      - { node_id: 'ns=3;s="DriveTelemetry"."Fan1"."FaultCode"', field: fault_code }
+

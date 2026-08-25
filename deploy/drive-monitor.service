@@ -1,0 +1,30 @@
+[Unit]
+Description=Read-only NORD drive telemetry monitor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=drive-monitor
+Group=drive-monitor
+WorkingDirectory=/opt/drive-monitor
+Environment=DRIVE_MONITOR_CONFIG=/etc/drive-monitor/config.yaml
+EnvironmentFile=-/etc/drive-monitor/secrets
+ExecStart=/opt/drive-monitor/.venv/bin/drive-monitor --host 0.0.0.0 --port 8080
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+
+[Install]
+WantedBy=multi-user.target
+
