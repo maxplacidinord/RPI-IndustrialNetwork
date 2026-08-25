@@ -46,4 +46,3 @@ def create_app(config: AppConfig) -> FastAPI:
         raise HTTPException(status_code=404, detail="drive not found")
 
     return app
-

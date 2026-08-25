@@ -24,4 +24,3 @@ def test_non_opc_endpoint_is_rejected() -> None:
                 "drives": [],
             }
         )
-

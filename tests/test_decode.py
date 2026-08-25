@@ -17,4 +17,3 @@ def test_signed_process_word() -> None:
 def test_scaling() -> None:
     assert scaled(1234, 0.01) == 12.34
     assert scaled(None, 0.01) is None
-

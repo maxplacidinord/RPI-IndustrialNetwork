@@ -52,4 +52,3 @@ class MonitorService:
     @property
     def ready(self) -> bool:
         return self._ready.is_set()
-

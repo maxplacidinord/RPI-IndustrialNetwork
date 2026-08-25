@@ -31,4 +31,3 @@ class DriveTelemetry(BaseModel):
 class MonitorSnapshot(BaseModel):
     generated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     drives: list[DriveTelemetry]
-

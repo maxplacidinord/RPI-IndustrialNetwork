@@ -72,4 +72,3 @@ def load_config(path: str | Path) -> AppConfig:
     with Path(path).open("r", encoding="utf-8") as stream:
         raw = yaml.safe_load(stream)
     return AppConfig.model_validate(raw)
-

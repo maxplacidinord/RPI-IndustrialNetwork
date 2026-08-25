@@ -32,4 +32,3 @@ def signed_word(value: int) -> int:
 
 def scaled(value: int | float | None, factor: float = 1.0, offset: float = 0.0) -> float | None:
     return None if value is None else float(value) * factor + offset
-

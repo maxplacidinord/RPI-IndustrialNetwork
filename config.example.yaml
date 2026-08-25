@@ -35,4 +35,3 @@ drives:
       - { node_id: 'ns=3;s="DriveTelemetry"."Fan1"."SpeedRpm"', field: speed_rpm }
       - { node_id: 'ns=3;s="DriveTelemetry"."Fan1"."StatusWord"', field: status_word }
       - { node_id: 'ns=3;s="DriveTelemetry"."Fan1"."FaultCode"', field: fault_code }
-

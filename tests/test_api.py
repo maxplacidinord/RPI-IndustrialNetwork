@@ -17,4 +17,3 @@ def test_simulator_api_is_read_only() -> None:
         assert response.status_code == 200
         assert response.json()["drives"][0]["drive_id"] == "test-drive"
         assert client.post("/api/v1/drives/test-drive").status_code == 405
-
